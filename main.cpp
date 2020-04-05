@@ -7,21 +7,21 @@
 const int W = 672, H = 784;
 const int ROWS = 14, COLS = 12;
 
-void theGame(int numofbombs);   /* runs the mouse interface and checks for gameover */
-void pre_loading(void* sprites[]);  /* loads the sprites from hard disk to RAM and sets the initial state of the game */
+void theGame(int numofbombs);    //runs the mouse interface and checks for gameover
+void preload(void* sprites[]);  /* loads the sprites from hard disk to RAM and sets the initial state of the game */
 void initgrid(int numofbombs);  /* initializes the grids */
 void initbombs(int bombs);  /* initializes the random position for the bombs */
 int disclosecell(int row, int col);  /* opens the cells */
 void thegameover();  /* displays the final state of the game */
 
-void background(int colour){
+void background(int colour){	//set background color 
     setfillstyle(SOLID_FILL, colour);
     bar(0, 0, W-1, H-1);
     return;
 }
 
 int main(){
-    int numofbombs = ROWS*COLS*29.0/200.0;
+    int numofbombs = ROWS*COLS*29.0/200.0; //i dont know but i read somewhere no of mines = 14.5% of total tiles so this :P 
 
     initwindow(W, H, "HELLO");
     initgrid(numofbombs);
@@ -45,12 +45,11 @@ void theGame(int numofbombs){
     int mx, mc, my, mr;
     bool gameover = false;
     int exposedcells = 0;
-    pre_loading(sprites);
+    preload(sprites);
 
     while(!mousex() || !mousey())
         delay(32);
 
-    /* press escape to exit */
     while(!GetAsyncKeyState(VK_ESCAPE) && !gameover){
 
         if(ismouseclick(WM_MOUSEMOVE)){
@@ -102,7 +101,7 @@ void theGame(int numofbombs){
 
 }
 
-void pre_loading(void* sprites[]){
+void preload(void* sprites[]){
     unsigned int img_size;
 
     char sprite_names[SPRITES_NUM][24] = {"sprites/blank.ico", "sprites/1.ico",
